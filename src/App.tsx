@@ -4,6 +4,7 @@ import Layout from './components/Layout'
 import Login from './pages/Login'
 import Dashboard from './pages/Dashboard'
 import Placeholder from './pages/Placeholder'
+import Configuracoes from './pages/Configuracoes'
 
 function Guard({ children }: { children: JSX.Element }) {
   const { session, loading } = useAuth()
@@ -21,7 +22,7 @@ export default function App() {
         <Route path="fluxo" element={<Placeholder title="Fluxo do Bot" step="B06" />} />
         <Route path="mensagens" element={<Placeholder title="Mensagens" step="B06" />} />
         <Route path="historico" element={<Placeholder title="Histórico" step="B05" />} />
-        <Route path="configuracoes" element={<Placeholder title="Configurações" step="B03" />} />
+        <Route path="configuracoes" element={<Configuracoes />} />
       </Route>
       <Route path="*" element={<Navigate to="/" replace />} />
     </Routes>
