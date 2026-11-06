@@ -2,6 +2,7 @@ import { useEffect, useMemo, useState, type FormEvent } from 'react'
 import { Link, useNavigate, useParams } from 'react-router-dom'
 import { ImagePlus, Plus, Trash2 } from 'lucide-react'
 import { supabase } from '../lib/supabase'
+import CamaroteDays from '../components/CamaroteDays'
 import { BUCKET, EVENT_SELECT, STATUS_LABEL, TYPE_LABEL, artworkUrl, displayName, type EventRow, type EventStatus, type EventType } from '../lib/events'
 
 type Draft = { key: string; id?: string; event_date: string; start_time: string }
@@ -109,7 +110,8 @@ export default function EventoForm() {
   if (loading) return <p className="text-sm text-muted">Carregando...</p>
 
   return (
-    <form onSubmit={save} className="mx-auto max-w-3xl space-y-5">
+    <div className="mx-auto max-w-3xl space-y-5">
+    <form onSubmit={save} className="space-y-5">
       <div className="flex flex-wrap items-center justify-between gap-3">
         <div>
           <Link to="/eventos" className="text-xs text-muted hover:text-white">Eventos /</Link>
@@ -188,5 +190,9 @@ export default function EventoForm() {
 
       <p className="text-xs text-muted">Ingressos, preços, artistas e pagamentos entram nas próximas etapas.</p>
     </form>
+    {id && type === 'PRE_CAJU_CAMAROTE' && (
+      <CamaroteDays days={days.filter((d) => d.id && d.event_date).map((d) => ({ id: d.id!, event_date: d.event_date }))} />
+    )}
+    </div>
   )
 }
