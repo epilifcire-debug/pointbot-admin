@@ -5,6 +5,8 @@ import Login from './pages/Login'
 import Dashboard from './pages/Dashboard'
 import Placeholder from './pages/Placeholder'
 import Configuracoes from './pages/Configuracoes'
+import Eventos from './pages/Eventos'
+import EventoForm from './pages/EventoForm'
 
 function Guard({ children }: { children: JSX.Element }) {
   const { session, loading } = useAuth()
@@ -18,7 +20,9 @@ export default function App() {
       <Route path="/login" element={<Login />} />
       <Route element={<Guard><Layout /></Guard>}>
         <Route index element={<Dashboard />} />
-        <Route path="eventos" element={<Placeholder title="Eventos" step="B04" />} />
+        <Route path="eventos" element={<Eventos />} />
+        <Route path="eventos/novo" element={<EventoForm />} />
+        <Route path="eventos/:id" element={<EventoForm />} />
         <Route path="fluxo" element={<Placeholder title="Fluxo do Bot" step="B06" />} />
         <Route path="mensagens" element={<Placeholder title="Mensagens" step="B06" />} />
         <Route path="historico" element={<Placeholder title="Histórico" step="B05" />} />
