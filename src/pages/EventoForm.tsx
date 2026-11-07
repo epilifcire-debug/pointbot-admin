@@ -5,6 +5,7 @@ import { supabase } from '../lib/supabase'
 import CamaroteDays from '../components/CamaroteDays'
 import BlocosDays from '../components/BlocosDays'
 import ExternoEditor from '../components/ExternoEditor'
+import PaymentsEditor from '../components/PaymentsEditor'
 import PackagesEditor from '../components/PackagesEditor'
 import { BUCKET, EVENT_SELECT, STATUS_LABEL, TYPE_LABEL, artworkUrl, displayName, type EventRow, type EventStatus, type EventType } from '../lib/events'
 
@@ -202,6 +203,7 @@ export default function EventoForm() {
     {id && type !== 'EVENTO_EXTERNO' && savedDays.length > 0 && (
       <PackagesEditor eventId={id} blocksType={type === 'PRE_CAJU_BLOCOS'} days={savedDays} refreshKey={blocksKey} />
     )}
+    {id && <PaymentsEditor eventId={id} type={type} days={savedDays} />}
     </div>
   )
 }
