@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useRef, useState } from 'react'
+import { useCallback, useEffect, useState } from 'react'
 import { ArrowDown, ArrowUp, Plus, Trash2 } from 'lucide-react'
 import { supabase } from '../lib/supabase'
 import { STATUS, dayLabel, fmtPrice, input, move, parsePrice, uid, type Day, type Msg } from '../lib/ui'
@@ -11,8 +11,6 @@ function DayBlocks({ day, onDirty, onSaved }: { day: Day; onDirty: (d: boolean) 
   const [loaded, setLoaded] = useState(false)
   const [busy, setBusy] = useState(false)
   const [msg, setMsg] = useState<Msg>(null)
-  const dirtyRef = useRef(onDirty)
-  dirtyRef.current = onDirty
 
   const load = useCallback(async () => {
     const { data, error } = await supabase.from('blocks')
@@ -20,8 +18,8 @@ function DayBlocks({ day, onDirty, onSaved }: { day: Day; onDirty: (d: boolean) 
     if (error) return setMsg({ ok: false, text: 'Não foi possível carregar os blocos.' })
     setBlocks((data ?? []).map((r: any) => ({ key: r.id, id: r.id, name: r.name, artist: r.artists?.name ?? '', lot: r.current_lot ? String(r.current_lot) : '',
       price: r.price != null ? fmtPrice(r.price) : '', status: r.status, url: r.purchase_url ?? '' })))
-    setLoaded(true); dirtyRef.current(false)
-  }, [day.id])
+    setLoaded(true); onDirty(false)
+  }, [day.id, onDirty])
   useEffect(() => { void load() }, [load])
 
   const set = (key: string, patch: Partial<B>) => { setBlocks(blocks.map((b) => b.key === key ? { ...b, ...patch } : b)); onDirty(true) }
