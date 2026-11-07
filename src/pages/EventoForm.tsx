@@ -4,6 +4,7 @@ import { ImagePlus, Plus, Trash2 } from 'lucide-react'
 import { supabase } from '../lib/supabase'
 import CamaroteDays from '../components/CamaroteDays'
 import BlocosDays from '../components/BlocosDays'
+import ExternoEditor from '../components/ExternoEditor'
 import PackagesEditor from '../components/PackagesEditor'
 import { BUCKET, EVENT_SELECT, STATUS_LABEL, TYPE_LABEL, artworkUrl, displayName, type EventRow, type EventStatus, type EventType } from '../lib/events'
 
@@ -197,6 +198,7 @@ export default function EventoForm() {
     </form>
     {id && type === 'PRE_CAJU_CAMAROTE' && <CamaroteDays days={savedDays} />}
     {id && type === 'PRE_CAJU_BLOCOS' && <BlocosDays days={savedDays} onSaved={() => setBlocksKey((k) => k + 1)} />}
+    {id && type === 'EVENTO_EXTERNO' && <ExternoEditor eventId={id} />}
     {id && type !== 'EVENTO_EXTERNO' && savedDays.length > 0 && (
       <PackagesEditor eventId={id} blocksType={type === 'PRE_CAJU_BLOCOS'} days={savedDays} refreshKey={blocksKey} />
     )}
