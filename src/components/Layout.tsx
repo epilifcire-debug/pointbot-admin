@@ -2,6 +2,7 @@ import { NavLink, Outlet } from 'react-router-dom'
 import { CalendarDays, Clock3, LayoutDashboard, LogOut, MessageSquare, Settings, Workflow } from 'lucide-react'
 import { useAuth } from '../auth/AuthContext'
 import PublishBar from './PublishBar'
+import BotStatus from './BotStatus'
 
 const items = [
   { to: '/', label: 'Dashboard', icon: LayoutDashboard, end: true },
@@ -30,6 +31,7 @@ export default function Layout() {
             <div className="text-xs text-muted">Gestão de Eventos</div>
           </div>
         </div>
+        <div className="mb-4 px-1"><BotStatus /></div>
         <nav className="flex flex-1 flex-col gap-1">
           {items.map(({ to, label, icon: Icon, end }) => (
             <NavLink key={to} to={to} end={end} className={link}><Icon size={18} />{label}</NavLink>
@@ -46,7 +48,10 @@ export default function Layout() {
       <div className="flex min-w-0 flex-1 flex-col">
         <header className="safe-t flex items-center justify-between border-b border-line px-4 py-3 md:hidden">
           <div className="flex items-center gap-2"><img src="./logo.png" alt="" className="h-8 w-8 rounded-full" /><b>PointBot</b></div>
-          <button onClick={signOut} aria-label="Sair" className="text-muted"><LogOut size={20} /></button>
+          <div className="flex items-center gap-3">
+            <BotStatus align="right" />
+            <button onClick={signOut} aria-label="Sair" className="text-muted"><LogOut size={20} /></button>
+          </div>
         </header>
         <main className="flex-1 overflow-y-auto p-4 pb-24 md:p-8 md:pb-8"><PublishBar /><Outlet /></main>
         <nav className="safe-b fixed inset-x-0 bottom-0 grid grid-cols-5 border-t border-line bg-bg md:hidden">
